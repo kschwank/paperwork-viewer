@@ -1,7 +1,7 @@
 package org.ako.pwv.controller;
 
 import org.ako.pwv.model.Document;
-import org.ako.pwv.model.DocumentList;
+import org.ako.pwv.model.Documents;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
 
 public class DocumentLoader {
 
-   public static DocumentList load(String path) throws ParseException {
+   public static Documents load(String path) throws ParseException {
 
-       DocumentList documentList = new DocumentList();
+       Documents documents = new Documents();
        File root = new File(path);
        assert root.isDirectory();
 
@@ -28,6 +28,6 @@ public class DocumentLoader {
            doc.path = docPath;
            doc.date = format.parse(docPath.getName().substring(0,7));
        }
-       return documentList;
+       return documents;
    }
 }

@@ -8,27 +8,27 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import org.ako.pwv.R;
 import org.ako.pwv.model.Document;
-import org.ako.pwv.model.DocumentList;
+import org.ako.pwv.model.Documents;
 import org.ako.pwv.view.DocumentViewHolder;
 
 public class DocumentAdapter extends BaseAdapter {
 
     Context context;
-    DocumentList documentList;
+    Documents documents;
 
-    public DocumentAdapter(Context context, DocumentList documentList) {
+    public DocumentAdapter(Context context, Documents documents) {
         this.context = context;
-        this.documentList = documentList;
+        this.documents = documents;
     }
 
     @Override
     public int getCount() {
-        return documentList.getList().size();
+        return documents.getList().size();
     }
 
     @Override
     public Document getItem(int position) {
-        return documentList.getList().get(position);
+        return documents.getList().get(position);
     }
 
     @Override

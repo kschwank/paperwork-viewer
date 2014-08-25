@@ -3,11 +3,9 @@ package org.ako.pwv.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentList {
+public class Documents {
 
     List<Document> documentList = new ArrayList<>();
-
-    public DocumentList() {}
 
     public List<Document> getList() {
         return documentList;

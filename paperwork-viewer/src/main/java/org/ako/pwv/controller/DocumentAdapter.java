@@ -9,6 +9,7 @@ import android.widget.TextView;
 import org.ako.pwv.R;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.DocumentList;
+import org.ako.pwv.view.DocumentViewHolder;
 
 public class DocumentAdapter extends BaseAdapter {
 
@@ -38,11 +39,19 @@ public class DocumentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        DocumentViewHolder viewHolder;
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.document_list_item, parent, false);
+            viewHolder = new DocumentViewHolder();
+            viewHolder.label = (TextView) convertView.findViewById(R.id.doc_list_item);
+
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (DocumentViewHolder)convertView.getTag();
         }
-        TextView label = (TextView)convertView.findViewById(R.id.doc_list_item);
-        label.setText(getItem(position).date.toString());
+
+        viewHolder.label.setText(getItem(position).date.toString());
 
         return convertView;
     }

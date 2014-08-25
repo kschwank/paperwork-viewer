@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import org.ako.pwv.controller.DocumentAdapter;
+import org.ako.pwv.controller.DocumentLoader;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.DocumentList;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.Date;
 
 public class BrowseDocs extends Activity {
@@ -19,12 +22,12 @@ public class BrowseDocs extends Activity {
 
         setContentView(R.layout.browse_view);
 
-        DocumentList documents = new DocumentList();
-        for (int i = 0; i<20; i++) {
-            Document doc = new Document();
-            doc.date = new Date(100000*i);
-            doc.path = new File("/somewhere");
-            documents.getList().add(i, doc);
+        Toast.makeText(this, "Loading documents", Toast.LENGTH_LONG);
+        DocumentList documents = null;
+        try {
+            documents = DocumentLoader.load("/sdcard/documents/BTSync/Paperwork");
+        } catch (ParseException e) {
+            Toast.makeText(this, "Loading failed", Toast.LENGTH_LONG);
         }
 
         DocumentAdapter documentAdapter = new DocumentAdapter(this, documents);

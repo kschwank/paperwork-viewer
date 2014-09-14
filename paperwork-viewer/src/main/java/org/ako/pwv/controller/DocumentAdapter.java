@@ -1,10 +1,12 @@
 package org.ako.pwv.controller;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import org.ako.pwv.R;
 import org.ako.pwv.model.Document;
@@ -42,16 +44,23 @@ public class DocumentAdapter extends BaseAdapter {
         DocumentViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.document_list_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.browse_list_item, parent, false);
             viewHolder = new DocumentViewHolder();
-            viewHolder.label = (TextView) convertView.findViewById(R.id.doc_list_item);
+            viewHolder.thumbnailImage = (ImageView) convertView.findViewById(R.id.browse_list_item_thumbnail);
+            viewHolder.dateText = (TextView) convertView.findViewById(R.id.browse_list_item_date);
+            viewHolder.tagsText = (TextView) convertView.findViewById(R.id.browse_list_item_tags);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (DocumentViewHolder)convertView.getTag();
         }
 
-        viewHolder.label.setText(getItem(position).date.toString());
+        Document item = getItem(position);
+        viewHolder.thumbnailImage.setImageBitmap(item.thumbnailFiles.length > 0 ?
+                BitmapFactory.decodeFile(item.thumbnailFiles[0].getAbsolutePath())
+                : null);
+        viewHolder.dateText.setText(item.date.toString());
+        viewHolder.tagsText.setText(item.tags.length > 0 ? item.tags[0] : "");
 
         return convertView;
     }

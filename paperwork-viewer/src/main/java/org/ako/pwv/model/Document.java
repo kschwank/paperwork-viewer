@@ -11,6 +11,6 @@ public class Document {
     public Date date;
     public String text;
     public String[] tags;
-    public Image[] thumbnails;
-    public Image[] images;
+    public File[] thumbnailFiles;
+    public File[] imageFiles;
 }

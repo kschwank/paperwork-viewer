@@ -1,5 +1,6 @@
 package org.ako.pwv.controller;
 
+import android.widget.Toast;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
 
@@ -8,7 +9,7 @@ import java.io.FileFilter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DocumentLoader {
+public class DocumentListLoader {
 
    public static Documents load(String path) throws ParseException {
 
@@ -27,6 +28,14 @@ public class DocumentLoader {
            Document doc = new Document();
            doc.path = docPath;
            doc.date = format.parse(docPath.getName().substring(0,7));
+           doc.thumbnailFiles = docPath.listFiles(new FileFilter() {
+               @Override
+               public boolean accept(File pathname) {
+                   return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]+\\.thumb\\.jpg");
+               }
+           });
+           doc.text = "Dummy DOC Text";
+           doc.tags = new String[] { "Dummy Tag" };
        }
        return documents;
    }

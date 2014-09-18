@@ -1,6 +1,5 @@
 package org.ako.pwv.controller;
 
-import android.widget.Toast;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
 
@@ -27,7 +26,7 @@ public class DocumentListLoader {
        })) {
            Document doc = new Document();
            doc.path = docPath;
-           doc.date = format.parse(docPath.getName().substring(0,7));
+           doc.date = format.parse(docPath.getName().substring(0,8));
            doc.thumbnailFiles = docPath.listFiles(new FileFilter() {
                @Override
                public boolean accept(File pathname) {

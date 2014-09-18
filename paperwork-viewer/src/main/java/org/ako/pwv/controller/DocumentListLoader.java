@@ -34,8 +34,15 @@ public class DocumentListLoader {
                    return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]+\\.thumb\\.jpg");
                }
            });
+           doc.imageFiles = docPath.listFiles(new FileFilter() {
+               @Override
+               public boolean accept(File pathname) {
+                   return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]\\.jpg");
+               }
+           });
            doc.text = "Dummy DOC Text";
            doc.tags = new String[] { "Dummy Tag" };
+           documents.getList().add(doc);
        }
        return documents;
    }

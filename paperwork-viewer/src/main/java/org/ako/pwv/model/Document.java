@@ -1,11 +1,10 @@
 package org.ako.pwv.model;
 
-import android.media.Image;
-
 import java.io.File;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Document {
+public class Document implements Serializable {
 
     public File path;
     public Date date;

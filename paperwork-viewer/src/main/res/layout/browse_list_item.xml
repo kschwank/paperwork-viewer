@@ -14,13 +14,13 @@
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
-              android:layout_alignRight="@id/browse_list_item_thumbnail"
+              android:layout_alignParentRight="true"
               android:id="@+id/browse_list_item_date"
     />
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_alignRight="@id/browse_list_item_thumbnail"
+              android:layout_alignParentRight="true"
               android:layout_below="@id/browse_list_item_date"
               android:id="@+id/browse_list_item_tags"
     />

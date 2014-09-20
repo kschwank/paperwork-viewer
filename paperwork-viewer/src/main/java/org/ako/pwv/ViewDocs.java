@@ -1,32 +1,26 @@
 package org.ako.pwv;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.widget.ListView;
+import org.ako.pwv.controller.PagesAdapter;
 import org.ako.pwv.model.Document;
 
 public class ViewDocs extends Activity {
-
-    Document document = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.document_view);
+        setContentView(R.layout.pages_view);
 
         if (getIntent().getExtras() != null) {
-            document = (Document)getIntent().getExtras().getSerializable("document");
+            Document document = (Document)getIntent().getExtras().getSerializable("document");
 
             if (document != null) {
-                ImageView imageView = (ImageView)findViewById(R.id.doc_single_view);
-
-                if (document.imageFiles.length > 0) {
-                    imageView.setImageBitmap(BitmapFactory.decodeFile(document.imageFiles[0].getAbsolutePath()));
-                } else {
-                    imageView.setImageBitmap(null);
-                }
+                PagesAdapter pagesAdapter = new PagesAdapter(this, document.imageFiles);
+                ListView pageListView = (ListView)findViewById(R.id.pages_list);
+                pageListView.setAdapter(pagesAdapter);
             }
         }
     }

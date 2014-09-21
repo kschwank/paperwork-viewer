@@ -13,7 +13,13 @@ import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
 import org.ako.pwv.view.DocumentViewHolder;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+
 public class DocumentAdapter extends BaseAdapter {
+
+    SimpleDateFormat DateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     Context context;
     Documents documents;
@@ -59,8 +65,8 @@ public class DocumentAdapter extends BaseAdapter {
         viewHolder.thumbnailImage.setImageBitmap(item.thumbnailFiles.length > 0 ?
                 BitmapFactory.decodeFile(item.thumbnailFiles[0].getAbsolutePath())
                 : null);
-        viewHolder.dateText.setText(item.date.toString());
-        viewHolder.tagsText.setText(item.tags.length > 0 ? item.tags[0] : "");
+        viewHolder.dateText.setText(DateFormat.format(item.date));
+        viewHolder.tagsText.setText(item.tags == null ? "[]" : Arrays.deepToString(item.tags));
 
         return convertView;
     }

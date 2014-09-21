@@ -3,10 +3,11 @@ package org.ako.pwv.controller;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
 
-import java.io.File;
-import java.io.FileFilter;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DocumentListLoader {
 
@@ -14,7 +15,6 @@ public class DocumentListLoader {
 
        Documents documents = new Documents();
        File root = new File(path);
-       assert root.isDirectory();
 
        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
@@ -39,9 +39,22 @@ public class DocumentListLoader {
                    return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]\\.jpg");
                }
            });
-           doc.text = "Dummy DOC Text";
-           doc.tags = new String[] { "Dummy Tag" };
-           documents.getList().add(doc);
+           doc.text = "";
+           File labelFiles = new File(docPath.getAbsolutePath() + "/labels");
+           if (labelFiles.exists()) {
+               try (BufferedReader fileReader = new BufferedReader(new FileReader(labelFiles))) {
+                   List<String> tagsList = new ArrayList<>();
+                   while (fileReader.ready()) {
+                       String line = fileReader.readLine();
+                       String tag = line.substring(0, line.indexOf(','));
+                       tagsList.add(tag);
+                   }
+                   doc.tags = tagsList.toArray(new String[tagsList.size()]);
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+           documents.add(doc);
        }
        return documents;
    }

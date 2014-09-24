@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,6 +21,8 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
 
     Documents documents = null;
 
+    String docRoot = Environment.getExternalStorageDirectory().getPath()+"/documents/BTSync/Paperwork";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +31,6 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
 
         Toast.makeText(this, "Loading documents", Toast.LENGTH_LONG).show();
         try {
-            String docRoot = Environment.getExternalStorageDirectory().getPath()+"/documents/BTSync/Paperwork";
             if (new File(docRoot).exists()) {
                 documents = DocumentListLoader.load(docRoot);
             } else {
@@ -49,5 +52,12 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
         Intent intent = new Intent(this, ViewDocs.class);
         intent.putExtra("document", documents.getList().get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.browse_menu, menu);
+
+        return true;
     }
 }

@@ -8,8 +8,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DocumentListLoader {
+
+   static final Pattern documentDir = Pattern.compile("[0-9]{8}_[0-9]{4}_[0-9]{2}.*");
+   static final Pattern thumbnailFile = Pattern.compile("paper\\.[0-9]+\\.thumb\\.jpg");
+   static final Pattern pageFile = Pattern.compile("paper\\.[0-9]\\.jpg");
 
    public static Documents load(String path) throws ParseException {
 
@@ -20,23 +25,22 @@ public class DocumentListLoader {
 
        for (File docPath : root.listFiles(new FileFilter() {
            @Override
-           public boolean accept(File pathname) {
-               return pathname.isDirectory() && pathname.getName().matches("[0-9]{8}_[0-9]{4}_[0-9]{2}.*");
+           public boolean accept(File path) {
+               return path.isDirectory() && documentDir.matcher(path.getName()).matches();
            }
        })) {
            Document doc = new Document();
-           doc.setPath(docPath);
-           doc.setDate(format.parse(docPath.getName().substring(0,8)));
+           doc.setDate(format.parse(docPath.getName().substring(0, 8)));
            doc.setThumbnailFiles(docPath.listFiles(new FileFilter() {
                @Override
-               public boolean accept(File pathname) {
-                   return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]+\\.thumb\\.jpg");
+               public boolean accept(File path) {
+                   return path.isFile() && thumbnailFile.matcher(path.getName()).matches();
                }
            }));
            doc.setImageFiles(docPath.listFiles(new FileFilter() {
                @Override
-               public boolean accept(File pathname) {
-                   return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]\\.jpg");
+               public boolean accept(File path) {
+                   return path.isFile() && pageFile.matcher(path.getName()).matches();
                }
            }));
            doc.setText("");

@@ -11,25 +11,27 @@ import org.ako.pwv.R;
 import org.ako.pwv.view.PageViewHolder;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 public class PagesAdapter extends BaseAdapter {
 
     Context context;
-    File[] imageFiles;
+    List<File> imageFiles = Collections.emptyList();
 
-    public PagesAdapter(Context context, File[] imageFiles) {
+    public PagesAdapter(Context context, List<File> imageFiles) {
         this.context = context;
         this.imageFiles = imageFiles;
     }
 
     @Override
     public int getCount() {
-        return imageFiles.length;
+        return imageFiles.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return imageFiles[position];
+        return imageFiles.get(position);
     }
 
     @Override

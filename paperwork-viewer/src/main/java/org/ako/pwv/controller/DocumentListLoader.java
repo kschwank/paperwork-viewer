@@ -27,18 +27,18 @@ public class DocumentListLoader {
            Document doc = new Document();
            doc.path = docPath;
            doc.date = format.parse(docPath.getName().substring(0,8));
-           doc.thumbnailFiles = docPath.listFiles(new FileFilter() {
+           doc.setThumbnailFiles(docPath.listFiles(new FileFilter() {
                @Override
                public boolean accept(File pathname) {
                    return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]+\\.thumb\\.jpg");
                }
-           });
-           doc.imageFiles = docPath.listFiles(new FileFilter() {
+           }));
+           doc.setImageFiles(docPath.listFiles(new FileFilter() {
                @Override
                public boolean accept(File pathname) {
                    return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]\\.jpg");
                }
-           });
+           }));
            doc.text = "";
            File labelFiles = new File(docPath.getAbsolutePath() + "/labels");
            if (labelFiles.exists()) {
@@ -49,7 +49,7 @@ public class DocumentListLoader {
                        String tag = line.substring(0, line.indexOf(','));
                        tagsList.add(tag);
                    }
-                   doc.tags = tagsList.toArray(new String[tagsList.size()]);
+                   doc.setTags(tagsList);
                } catch (IOException e) {
                    e.printStackTrace();
                }

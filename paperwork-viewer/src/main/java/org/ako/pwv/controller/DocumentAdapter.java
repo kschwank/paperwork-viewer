@@ -5,9 +5,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import org.ako.pwv.R;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
@@ -15,7 +13,6 @@ import org.ako.pwv.view.DocumentViewHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 
 public class DocumentAdapter extends BaseAdapter {
 
@@ -62,11 +59,11 @@ public class DocumentAdapter extends BaseAdapter {
         }
 
         Document item = getItem(position);
-        viewHolder.thumbnailImage.setImageBitmap(item.thumbnailFiles.length > 0 ?
-                BitmapFactory.decodeFile(item.thumbnailFiles[0].getAbsolutePath())
+        viewHolder.thumbnailImage.setImageBitmap(item.thumbnailFiles.size() > 0 ?
+                BitmapFactory.decodeFile(item.thumbnailFiles.get(0).getAbsolutePath())
                 : null);
         viewHolder.dateText.setText(DateFormat.format(item.date));
-        viewHolder.tagsText.setText(item.tags == null ? "[]" : Arrays.deepToString(item.tags));
+        viewHolder.tagsText.setText(item.tags == null ? "" : Arrays.deepToString(item.tags.toArray()));
 
         return convertView;
     }

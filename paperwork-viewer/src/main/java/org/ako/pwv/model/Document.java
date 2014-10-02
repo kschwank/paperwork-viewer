@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Document implements Serializable, Comparable<Document> {
 
-    File path;
     Date date;
     String text;
     List<String> tags = Collections.emptyList();
@@ -14,14 +13,6 @@ public class Document implements Serializable, Comparable<Document> {
     List<File> imageFiles = Collections.emptyList();
 
     private static FileNameComparator filenameComparator = new FileNameComparator();
-
-    public File getPath() {
-        return path;
-    }
-
-    public void setPath(File path) {
-        this.path = path;
-    }
 
     public Date getDate() {
         return date;

@@ -25,8 +25,8 @@ public class DocumentListLoader {
            }
        })) {
            Document doc = new Document();
-           doc.path = docPath;
-           doc.date = format.parse(docPath.getName().substring(0,8));
+           doc.setPath(docPath);
+           doc.setDate(format.parse(docPath.getName().substring(0,8)));
            doc.setThumbnailFiles(docPath.listFiles(new FileFilter() {
                @Override
                public boolean accept(File pathname) {
@@ -39,7 +39,7 @@ public class DocumentListLoader {
                    return pathname.isFile() && pathname.getName().matches("paper\\.[0-9]\\.jpg");
                }
            }));
-           doc.text = "";
+           doc.setText("");
            File labelFiles = new File(docPath.getAbsolutePath() + "/labels");
            if (labelFiles.exists()) {
                try (BufferedReader fileReader = new BufferedReader(new FileReader(labelFiles))) {

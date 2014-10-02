@@ -59,11 +59,11 @@ public class DocumentAdapter extends BaseAdapter {
         }
 
         Document item = getItem(position);
-        viewHolder.thumbnailImage.setImageBitmap(item.thumbnailFiles.size() > 0 ?
-                BitmapFactory.decodeFile(item.thumbnailFiles.get(0).getAbsolutePath())
+        viewHolder.thumbnailImage.setImageBitmap(item.getThumbnailFiles().size() > 0 ?
+                BitmapFactory.decodeFile(item.getThumbnailFiles().get(0).getAbsolutePath())
                 : null);
-        viewHolder.dateText.setText(DateFormat.format(item.date));
-        viewHolder.tagsText.setText(item.tags == null ? "" : Arrays.deepToString(item.tags.toArray()));
+        viewHolder.dateText.setText(DateFormat.format(item.getDate()));
+        viewHolder.tagsText.setText(Arrays.deepToString(item.getTags().toArray()));
 
         return convertView;
     }

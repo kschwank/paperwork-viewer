@@ -18,7 +18,7 @@ public class ViewDocs extends Activity {
             Document document = (Document)getIntent().getExtras().getSerializable("document");
 
             if (document != null) {
-                PagesAdapter pagesAdapter = new PagesAdapter(this, document.imageFiles);
+                PagesAdapter pagesAdapter = new PagesAdapter(this, document.getImageFiles());
                 ListView pageListView = (ListView)findViewById(R.id.pages_list);
                 pageListView.setAdapter(pagesAdapter);
             }

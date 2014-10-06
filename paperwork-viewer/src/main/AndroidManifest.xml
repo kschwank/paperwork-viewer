@@ -19,6 +19,9 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
+        <activity android:name=".SetPreferences"
+                  android:label="Settings"/>
+
     </application>
 
 </manifest>

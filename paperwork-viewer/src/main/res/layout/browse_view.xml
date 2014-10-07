@@ -5,6 +5,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_text_view"
+            android:maxLines="1">
+        <requestFocus/>
+    </EditText>
+
     <ListView android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/browse_list_view"

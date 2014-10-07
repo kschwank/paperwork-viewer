@@ -65,7 +65,7 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(this, ViewDocs.class);
-        intent.putExtra("document", documents.getList().get(position));
+        intent.putExtra("document", documentAdapter.getItem(position));
         startActivity(intent);
     }
 
@@ -98,9 +98,7 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -108,7 +106,5 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
-
-    }
+    public void afterTextChanged(Editable s) {}
 }

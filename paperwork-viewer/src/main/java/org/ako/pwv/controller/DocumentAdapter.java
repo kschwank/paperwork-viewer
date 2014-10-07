@@ -12,7 +12,9 @@ import org.ako.pwv.model.Documents;
 import org.ako.pwv.view.DocumentViewHolder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class DocumentAdapter extends BaseAdapter {
 
@@ -20,20 +22,25 @@ public class DocumentAdapter extends BaseAdapter {
 
     Context context;
     Documents documents;
+    ArrayList<Document> filteredDocuments;
+
+    DocumentFilter filter;
 
     public DocumentAdapter(Context context, Documents documents) {
         this.context = context;
         this.documents = documents;
+        filteredDocuments = new ArrayList<>();
+        filteredDocuments.addAll(documents.getList());
     }
 
     @Override
     public int getCount() {
-        return documents.getList().size();
+        return filteredDocuments.size();
     }
 
     @Override
     public Document getItem(int position) {
-        return documents.getList().get(position);
+        return filteredDocuments.get(position);
     }
 
     @Override
@@ -66,5 +73,51 @@ public class DocumentAdapter extends BaseAdapter {
         viewHolder.tagsText.setText(Arrays.deepToString(item.getTags().toArray()));
 
         return convertView;
+    }
+
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new DocumentFilter();
+        }
+        return filter;
+    }
+
+    private class DocumentFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            constraint = constraint.toString().toLowerCase(Locale.getDefault());
+            FilterResults result = new FilterResults();
+
+            if (constraint.toString().length() > 0) {
+                ArrayList<Document> matchingDocuments = new ArrayList<>();
+                for (Document document : documents.getList()) {
+                   for (String tag : document.getTags()) {
+                       if (tag.toLowerCase(Locale.getDefault()).contains(constraint)) {
+                           matchingDocuments.add(document);
+                           break;
+                       }
+                   }
+                }
+                result.values = matchingDocuments;
+                result.count = matchingDocuments.size();
+            } else {
+                synchronized (this) {
+                    ArrayList<Document> allDocuments = new ArrayList<>();
+                    allDocuments.addAll(documents.getList());
+                    result.values = allDocuments;
+                    result.count = allDocuments.size();
+                }
+            }
+            return result;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredDocuments.clear();
+            filteredDocuments.addAll((ArrayList<Document>) results.values);
+            notifyDataSetChanged();
+        }
     }
 }

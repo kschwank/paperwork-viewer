@@ -71,7 +71,7 @@ public class Document implements Serializable, Comparable<Document> {
 
         @Override
         public boolean equals(Object object) {
-            return this.equals(object);
+            return false;
         }
     }
 }

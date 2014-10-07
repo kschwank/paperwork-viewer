@@ -15,6 +15,7 @@ public class DocumentListLoader {
    static final Pattern documentDir = Pattern.compile("[0-9]{8}_[0-9]{4}_[0-9]{2}.*");
    static final Pattern thumbnailFile = Pattern.compile("paper\\.[0-9]+\\.thumb\\.jpg");
    static final Pattern pageFile = Pattern.compile("paper\\.[0-9]\\.jpg");
+   static final Pattern wordsFile = Pattern.compile("paper\\.[0-9]\\.words");
 
    public static Documents load(String path) throws ParseException {
 
@@ -43,7 +44,8 @@ public class DocumentListLoader {
                    return path.isFile() && pageFile.matcher(path.getName()).matches();
                }
            }));
-           doc.setText("");
+           doc.setText(null);
+
            File labelFiles = new File(docPath.getAbsolutePath() + "/labels");
            if (labelFiles.exists()) {
                try (BufferedReader fileReader = new BufferedReader(new FileReader(labelFiles))) {

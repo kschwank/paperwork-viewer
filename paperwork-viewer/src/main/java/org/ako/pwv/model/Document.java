@@ -7,7 +7,7 @@ import java.util.*;
 public class Document implements Serializable, Comparable<Document> {
 
     Date date;
-    String text;
+    List<String> text;
     List<String> tags = Collections.emptyList();
     List<File> thumbnailFiles = Collections.emptyList();
     List<File> imageFiles = Collections.emptyList();
@@ -22,11 +22,11 @@ public class Document implements Serializable, Comparable<Document> {
         this.date = date;
     }
 
-    public String getText() {
+    public List<String> getText() {
         return text;
     }
 
-    public void setText(String text) {
+    public void setText(List<String> text) {
         this.text = text;
     }
 

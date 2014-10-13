@@ -62,7 +62,7 @@ public class DocumentListLoader {
                    e.printStackTrace();
                }
            }
-           doc.setText(words);
+           doc.setText(words.toLowerCase());
 
            File labelFiles = new File(docPath.getAbsolutePath() + "/labels");
            if (labelFiles.exists()) {

@@ -92,12 +92,16 @@ public class DocumentAdapter extends BaseAdapter {
             if (constraint.toString().length() > 0) {
                 ArrayList<Document> matchingDocuments = new ArrayList<>();
                 for (Document document : documents.getList()) {
-                   for (String tag : document.getTags()) {
-                       if (tag.toLowerCase(Locale.getDefault()).contains(constraint)) {
-                           matchingDocuments.add(document);
-                           break;
-                       }
-                   }
+                    if (document.getText().contains(constraint)) {
+                        matchingDocuments.add(document);
+                    } else {
+                        for (String tag : document.getTags()) {
+                            if (tag.toLowerCase(Locale.getDefault()).contains(constraint)) {
+                                matchingDocuments.add(document);
+                                break;
+                            }
+                        }
+                    }
                 }
                 result.values = matchingDocuments;
                 result.count = matchingDocuments.size();

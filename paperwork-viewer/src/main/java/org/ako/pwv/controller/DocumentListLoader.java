@@ -1,5 +1,7 @@
 package org.ako.pwv.controller;
 
+import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
 import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
 
@@ -7,6 +9,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -44,7 +47,22 @@ public class DocumentListLoader {
                    return path.isFile() && pageFile.matcher(path.getName()).matches();
                }
            }));
-           doc.setText(null);
+           List<File> wordsFiles = new ArrayList<>();
+           wordsFiles.addAll(Arrays.asList(docPath.listFiles(new FileFilter() {
+               @Override
+               public boolean accept(File path) {
+                   return path.isFile() && wordsFile.matcher(path.getName()).matches();
+               }
+           })));
+           String words = "";
+           for (File file : wordsFiles) {
+               try {
+                   words += " " + Joiner.on(' ').join(com.google.common.io.Files.readLines(file, Charsets.UTF_8));
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+           doc.setText(words);
 
            File labelFiles = new File(docPath.getAbsolutePath() + "/labels");
            if (labelFiles.exists()) {

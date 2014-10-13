@@ -11,10 +11,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import org.ako.pwv.controller.DocumentAdapter;
 import org.ako.pwv.controller.DocumentListLoader;
 import org.ako.pwv.model.Documents;
@@ -22,7 +19,7 @@ import org.ako.pwv.model.Documents;
 import java.io.File;
 import java.text.ParseException;
 
-public class BrowseDocs extends Activity implements AdapterView.OnItemClickListener, TextWatcher {
+public class BrowseDocs extends Activity implements AdapterView.OnItemClickListener, TextWatcher, View.OnClickListener {
 
     Documents documents = null;
     DocumentAdapter documentAdapter = null;
@@ -95,6 +92,9 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
 
         EditText searchTextView = (EditText)findViewById(R.id.search_text_view);
         searchTextView.addTextChangedListener(this);
+
+        ImageButton clearButton = (ImageButton)findViewById(R.id.clear_search_button);
+        clearButton.setOnClickListener(this);
     }
 
     @Override
@@ -107,4 +107,10 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
 
     @Override
     public void afterTextChanged(Editable s) {}
+
+    @Override
+    public void onClick(View v) {
+        EditText searchTextView = (EditText)findViewById(R.id.search_text_view);
+        searchTextView.setText("");
+    }
 }

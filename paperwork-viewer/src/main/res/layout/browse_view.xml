@@ -7,14 +7,15 @@
 
 
     <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:background="@drawable/ic_clear"
             android:id="@+id/clear_search_button"
     />
 
     <EditText
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@android:dimen/app_icon_size"
             android:layout_toRightOf="@id/clear_search_button"
             android:id="@+id/search_text_view"
             android:maxLines="1">

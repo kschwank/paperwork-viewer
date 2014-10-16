@@ -24,6 +24,8 @@ import java.text.ParseException;
 
 public class BrowseDocs extends Activity implements AdapterView.OnItemClickListener, TextWatcher, View.OnClickListener {
 
+    private static final int ACTIVITY_CHOOSE_FILE = 3;
+
     Documents documents = null;
     DocumentAdapter documentAdapter = null;
     String docRoot;
@@ -48,9 +50,12 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent intent = new Intent();
-        intent.setClass(BrowseDocs.this, SetPreferences.class);
-        startActivityForResult(intent, 0);
+        Intent chooseFile;
+        Intent intent;
+        chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+        chooseFile.setType("file/*");
+        intent = Intent.createChooser(chooseFile, "Choose a file");
+        startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
 
         return true;
     }

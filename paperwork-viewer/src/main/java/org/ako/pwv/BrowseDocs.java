@@ -1,8 +1,10 @@
 package org.ako.pwv;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.*;
 import org.ako.pwv.controller.DocumentAdapter;
 import org.ako.pwv.controller.DocumentListLoader;
+import org.ako.pwv.model.Document;
 import org.ako.pwv.model.Documents;
 
 import java.io.File;
@@ -61,9 +64,22 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent intent = new Intent(this, ViewDocs.class);
-        intent.putExtra("document", documentAdapter.getItem(position));
-        startActivity(intent);
+        Intent intent;
+
+        Document document = documentAdapter.getItem(position);
+        if (document.getImageFiles().get(0).getPath().toLowerCase().endsWith("pdf")) {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(document.getImageFiles().get(0)), "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        } else {
+            intent = new Intent(this, ViewDocs.class);
+            intent.putExtra("document", documentAdapter.getItem(position));
+        }
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No application available to view PDF", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void reloadDocuments() {

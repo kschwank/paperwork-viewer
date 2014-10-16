@@ -18,7 +18,7 @@ public class DocumentListLoader {
 
    static final Pattern documentDir = Pattern.compile("[0-9]{8}_[0-9]{4}_[0-9]{2}.*");
    static final Pattern thumbnailFile = Pattern.compile("paper\\.[0-9]+\\.thumb\\.jpg");
-   static final Pattern pageFile = Pattern.compile("paper\\.[0-9]\\.((jpg)|(pdf))");
+   static final Pattern pageFile = Pattern.compile("(paper\\.[0-9]\\.jpg)|(doc\\.pdf)");
    static final Pattern wordsFile = Pattern.compile("paper\\.[0-9]\\.words");
    static final Pattern ocrWord = Pattern.compile(">[^\\s<]+<");
 

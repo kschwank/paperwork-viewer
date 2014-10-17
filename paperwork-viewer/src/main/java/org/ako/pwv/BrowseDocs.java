@@ -78,7 +78,13 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
         Intent intent;
 
         Document document = documentAdapter.getItem(position);
-        if (document.getImageFiles().get(0).getPath().toLowerCase().endsWith("pdf")) {
+
+        if (document.getImageFiles().isEmpty()) {
+            Toast.makeText(this, "Document contains no pages", Toast.LENGTH_LONG);
+            return;
+        }
+
+        if (document.getImageFiles().get(0).getPath().endsWith("doc.pdf")) {
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(document.getImageFiles().get(0)), "application/pdf");
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

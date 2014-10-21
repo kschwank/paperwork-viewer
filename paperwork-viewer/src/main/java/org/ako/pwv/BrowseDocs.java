@@ -24,7 +24,7 @@ import java.text.ParseException;
 
 public class BrowseDocs extends Activity implements AdapterView.OnItemClickListener, TextWatcher, View.OnClickListener {
 
-    private static final int ACTIVITY_CHOOSE_DIR = 3;
+    private static final int ACTIVITY_ES_CHOOSE_DIR = 3;
 
     Documents documents = null;
     DocumentAdapter documentAdapter = null;
@@ -51,10 +51,15 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Intent chooseFile;
-        chooseFile = new Intent("com.estrongs.action.PICK_DIRECTORY");
-        chooseFile.putExtra("com.estrongs.intent.extra.TITLE", "Select Paperwork Directory");
-        startActivityForResult(chooseFile, ACTIVITY_CHOOSE_DIR);
-
+        try {
+            chooseFile = new Intent("com.estrongs.action.PICK_DIRECTORY");
+            chooseFile.putExtra("com.estrongs.intent.extra.TITLE", "Select Paperwork Directory");
+            startActivityForResult(chooseFile, ACTIVITY_ES_CHOOSE_DIR);
+        } catch (ActivityNotFoundException e) {
+            chooseFile = new Intent();
+            chooseFile.setClass(this, SetPreferences.class);
+            startActivityForResult(chooseFile, 0);
+        }
         return true;
     }
 
@@ -62,14 +67,15 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (requestCode) {
-            case ACTIVITY_CHOOSE_DIR:
+            case ACTIVITY_ES_CHOOSE_DIR:
+                if (data == null) return;
                 if (data.getData() != null) {
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                     sharedPreferences.edit().putString("paperwork_dir", data.getData().getPath()).apply();
-                    reloadDocuments();
                 }
                 break;
         }
+        reloadDocuments();
     }
 
     @Override

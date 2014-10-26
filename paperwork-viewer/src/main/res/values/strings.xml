@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Paperwork Viewer</string>
+    <string name="menu_settings_item_title">Settings</string>
+    <string name="menu_about_item_title">About</string>
+    <string name="about_title">PaperworkViewer 0.1.0</string>
+    <string name="about_text">
+        PaperworkViewer is a viewer for datasets of the Paperwork
+        document management system developed by Jerome Flesch\n
+        (https://github.com/jflesch/paperwork)\n\n
+        Developer: Karsten Schwank\n
+        https://github.com/kschwank\n
+        Sources:\n
+        https://github.com/kschwank/paperwork-viewer\n\n
+        Licensed under GPLv3\n
+        (https://www.gnu.org/copyleft/gpl.html)
+    </string>
 </resources>

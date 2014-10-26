@@ -50,15 +50,24 @@ public class BrowseDocs extends Activity implements AdapterView.OnItemClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent chooseFile;
-        try {
-            chooseFile = new Intent("com.estrongs.action.PICK_DIRECTORY");
-            chooseFile.putExtra("com.estrongs.intent.extra.TITLE", "Select Paperwork Directory");
-            startActivityForResult(chooseFile, ACTIVITY_ES_CHOOSE_DIR);
-        } catch (ActivityNotFoundException e) {
-            chooseFile = new Intent();
-            chooseFile.setClass(this, SetPreferences.class);
-            startActivityForResult(chooseFile, 0);
+        switch (item.getItemId()) {
+            case R.id.settings_menu_paperwork_item:
+                Intent chooseFile;
+                try {
+                    chooseFile = new Intent("com.estrongs.action.PICK_DIRECTORY");
+                    chooseFile.putExtra("com.estrongs.intent.extra.TITLE", "Select Paperwork Directory");
+                    startActivityForResult(chooseFile, ACTIVITY_ES_CHOOSE_DIR);
+                } catch (ActivityNotFoundException e) {
+                    chooseFile = new Intent();
+                    chooseFile.setClass(this, SetPreferences.class);
+                    startActivityForResult(chooseFile, 0);
+                }
+                break;
+            case R.id.settings_menu_about_item:
+                Intent showAbout = new Intent();
+                showAbout.setClass(this, ShowAbout.class);
+                startActivity(showAbout);
+                break;
         }
         return true;
     }

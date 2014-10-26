@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".SetPreferences"
                   android:label="Settings"/>
+        <activity android:name=".ShowAbout"/>
 
     </application>
 

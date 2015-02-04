@@ -16,5 +16,7 @@ Paperwork Viewer requires Android API 19+
 
 ## Status
 
-Paperwork Viewer is still in in very early stage and was only properly tested on Nexus 4 with Android 
-4.4
+Paperwork Viewer is still in in very early stage and was only tested on Nexus 4 with Android 
+4.4 and 5 as well as on a Samsung Tab Pro 8 T320 with Android 4.4.2 and a Nexus 7 with Android 
+4.x to 5.
+

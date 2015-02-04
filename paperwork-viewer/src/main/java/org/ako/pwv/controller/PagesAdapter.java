@@ -67,16 +67,17 @@ public class PagesAdapter extends BaseAdapter {
         display.getSize(size);
         int maxWidth = size.x;
 
-        int scale = 1;
+        int sampleSize = 1;
         if (options.outWidth > maxWidth) {
-            scale = (int)Math.pow(2, (int)Math.ceil(Math.log(maxWidth / (double)options.outWidth) / Math.log(0.5)));
+            sampleSize = (int)Math.pow(2, (int)Math.ceil(Math.log(maxWidth / (double)options.outWidth) / Math.log(0.5)));
         }
 
         options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = true;
         options.inPurgeable = true;
         options.inInputShareable = true;
-        options.inScaled = true;
-        options.inSampleSize = scale;
+        options.inSampleSize = sampleSize;
         Bitmap srcBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
         viewHolder.imageView.setImageBitmap(srcBitmap);
 
